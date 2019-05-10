@@ -7,7 +7,7 @@ sql.createConnection({
 
     port: '3306',
 
-    username: 'root',
+    user: 'root',
 
     password: sqlPass,
 
