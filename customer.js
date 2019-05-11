@@ -1,3 +1,4 @@
+// REQUIRE ALL VARIABLES AND SET CONNECTIONS
 var sql = require('mysql');
 var inq = require('inquirer');
 var sqlPass = require('./pass.js');
@@ -46,6 +47,7 @@ var cusPrompt = (res) => {
     inq.prompt(questions).then(answers => {
         var Id = answers.id;
         var Units = answers.units;
+        // SUBTRACT THE UNITS BOUGHT FROM BACK STOCK
         var remainingStock = Math.floor(res[Math.floor(Id - 1)].stock_quantity - Units);
         //QUERY FOR SELECTED ID 
         con.query('select item_id, product_name, price, stock_quantity from products where item_id = ?', Id, function (err, response) {
@@ -54,6 +56,7 @@ var cusPrompt = (res) => {
             console.log('\n===========================Ordered Item=============================\n');
             console.table(response);
             console.log('================================================================\n');
+
             if (Units > response[0].stock_quantity) {
                 console.log('We do not have that many units in stock, sorry');
                 customer();
@@ -78,7 +81,7 @@ var cusPrompt = (res) => {
                     function (err) {
                         if (err) throw err
                     });
-
+                // SHOW UPDATED ITEMS IN DB
                 con.query('select * from products', function (err, res) {
                     if (err) throw err;
 
@@ -105,7 +108,7 @@ var customer = () => {
         cusPrompt(res);
     });
 };
-
+// PROMPT TO ASK IF THEY WANT TO PURCHASE AGAIN
 var buyAgain = () => {
     inq.prompt([
         {
