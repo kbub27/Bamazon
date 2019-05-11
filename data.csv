@@ -1,10 +1,10 @@
-socks, 3.99, 1000
-pants, 8.99, 500
-shirts, 4.89, 750
-DVDs, 19.99, 15000
-toys, 5.99, 500
-hangers, 7.99, 250
-calendars, 4.75, 300
-headphones, 89.99, 25
-xbox, 399.99, 12
-PS4, 379.89, 20
+socks, clothing, 3.99, 1000
+pants, clothing, 8.99, 500
+shirts, clothing, 4.89, 750
+DVDs, electonics, 19.99, 15000
+toys, toys, 5.99, 500
+hangers, clothing, 7.99, 250
+calendars, office items, 4.75, 300
+headphones, electronics, 89.99, 25
+xbox, electronics, 399.99, 12
+PS4, electronics, 379.89, 20

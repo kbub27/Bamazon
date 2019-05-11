@@ -26,10 +26,11 @@ var customer = () => {
                 'Price: ' + res[i].price,
                 'In-Stock: ' + res[i].stock_quantity
                 );
-        }
+        };
+        console.log('==============================================')
     });
     // PROMPT THE CUSTOMER WITH QUESTIONS AND RETURN THE RESULTS THEY WANT
-    
+
 }
 
 customer();
