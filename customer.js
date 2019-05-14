@@ -23,7 +23,7 @@ var cusPrompt = (res) => {
             type: 'input',
             message: 'What is the id of the item you would like to buy?',
             validate: function (value) {
-                if (!isNaN(value)) {
+                if (isNaN(value) === false && (value > res.length) === false) {
                     return true;
                 } else {
                     return false
