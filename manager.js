@@ -19,7 +19,7 @@ var manager = () => {
         {
             type: 'list',
             name: 'selection',
-            choices: ['View Products for Sale', 'View Low Inventory', 'Add to Inventory', 'Add New Product']
+            choices: ['View Products for Sale', 'View Low Inventory', 'Add to Inventory', 'Add New Product', 'Exit Manager App.']
         }
     ];
 
@@ -31,19 +31,20 @@ var manager = () => {
                 console.log('\n====================Products in stock===========================\n');
                 console.table(res);
                 console.log('================================================================\n');
-
+                manager();
             });
         } else if (answer.selection === promptQuestion[0].choices[1]) {
             con.query('select * from products where stock_quantity < 300', function (err, res) {
                 if (err) throw err;
-                
-                if (typeof res[0] === 'undefined' ) {
+
+                if (typeof res[0] === 'undefined') {
                     console.log('No items low in stock')
                 } else {
 
                     console.log('\n====================Low Product Stock===========================\n');
                     console.table(res);
                     console.log('================================================================\n');
+                    manager();
                 }
             });
         } else if (answer.selection === promptQuestion[0].choices[2]) {
@@ -105,12 +106,64 @@ var manager = () => {
                         console.log('\n====================Updated Stock Inventory===========================\n');
                         console.table(res);
                         console.log('=================================================================\n');
-
+                        manager();
                     });
                 });
             });
         } else if (answer.selection === promptQuestion[0].choices[3]) {
-            console.log('last manager query.')
+            inq.prompt([
+                {
+                    type: 'input',
+                    name: 'product_name',
+                    message: 'What is the name of the product you are adding?'
+                },
+                {
+                    type: 'input',
+                    name: 'department_name',
+                    message: 'What is the name of the department this product belongs to?'
+                },
+                {
+                    type: 'input',
+                    name: 'price',
+                    message: 'What is the asking price for this product?(Must be a number!)',
+                    validate: function (value) {
+                        if (isNaN(value) === false) {
+                            return true;
+                        } else {
+                            return false
+                        };
+                    },
+                },
+                {
+                    type: 'input',
+                    name: 'stock_quantity',
+                    message: 'How many units of this product will you be adding?(Must be a number!)',
+                    validate: function (value) {
+                        if (isNaN(value) === false) {
+                            return true;
+                        } else {
+                            return false
+                        };
+                    },
+                }
+            ]).then(answers => {
+
+                con.query("INSERT INTO products SET ?", answers, function (err, res, fields) {
+                    if (err) throw err;
+                    console.log(res);
+                });
+
+                con.query('select * from products', function (err, res) {
+                    if (err) throw err;
+
+                    console.log('\n====================Updated Stock Inventory===========================\n');
+                    console.table(res);
+                    console.log('=================================================================\n');
+                    manager();
+                });
+            })
+        } else {
+            con.end();
         }
     })
 };
