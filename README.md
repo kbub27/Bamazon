@@ -6,6 +6,10 @@ Mock amazon-like store front using mySQL.
 
 ## About
 
+CUSTOMER.JS
+
+---
+
 Bamazon retreives a set of mock storefront data from mySQL then returns it into a table that yuo can then buy from.
 
 The table will show and then you will be prompted with questions to determine what you would like to buy from the store front.
@@ -23,6 +27,13 @@ If you wouldn't like to buy again you then would be exited out of the applicatio
 
 ---
 
+MANAGER.JS
+
+---
+
+
+
+---
 ## Components Used
 
 * Javascript

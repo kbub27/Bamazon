@@ -75,11 +75,37 @@ var manager = () => {
                         },
                     }
                 ]).then(answer => {
-                    console.log(answer);
+                    var Id = answer.id;
+                    var Units = answer.add;
+                    // ADD THE UNITS TO THE STOK IN THE DB
+                    var newStock = Math.floor(res[Math.floor(Id - 1)].stock_quantity += parseInt(Units));
+
+                    con.query(
+                        'update products set ? where ?',
+                        [
+                            {
+                                stock_quantity: newStock
+                            },
+                            {
+                                item_id: Id
+                            }
+                        ],
+                        function (err) {
+                            if (err) throw err
+                        });
+                    // SHOW UPDATED STOCK INVENTORY
+                    con.query('select * from products', function (err, res) {
+                        if (err) throw err;
+
+                        console.log('====================Updated Stock Inventory===========================\n');
+                        console.table(res);
+                        console.log('================================================================\n');
+
+                    });
                 });
-
             });
-
+        } else if (answer.selection === promptQuestion[0].choices[3]) {
+            console.log('last manager query.')
         }
     })
 };
