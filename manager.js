@@ -34,12 +34,17 @@ var manager = () => {
 
             });
         } else if (answer.selection === promptQuestion[0].choices[1]) {
-            con.query('select * from products where stock_quantity < 30', function (err, res) {
+            con.query('select * from products where stock_quantity < 300', function (err, res) {
                 if (err) throw err;
+                
+                if (typeof res[0] === 'undefined' ) {
+                    console.log('No items low in stock')
+                } else {
 
-                console.log('\n====================Low Product Stock===========================\n');
-                console.table(res);
-                console.log('================================================================\n');
+                    console.log('\n====================Low Product Stock===========================\n');
+                    console.table(res);
+                    console.log('================================================================\n');
+                }
             });
         } else if (answer.selection === promptQuestion[0].choices[2]) {
             con.query('select * from products', function (err, res) {
@@ -97,7 +102,7 @@ var manager = () => {
                     con.query('select * from products', function (err, res) {
                         if (err) throw err;
 
-                        console.log('====================Updated Stock Inventory===========================\n');
+                        console.log('\n====================Updated Stock Inventory===========================\n');
                         console.table(res);
                         console.log('=================================================================\n');
 
