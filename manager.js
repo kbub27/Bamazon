@@ -34,11 +34,14 @@ var manager = () => {
                 manager();
             });
         } else if (answer.selection === promptQuestion[0].choices[1]) {
-            con.query('select * from products where stock_quantity < 300', function (err, res) {
+            con.query('select * from products where stock_quantity < 5', function (err, res) {
                 if (err) throw err;
 
                 if (typeof res[0] === 'undefined') {
-                    console.log('No items low in stock')
+                    console.log('\n====================Low Product Stock===========================\n');
+                    console.log('No items low in inventory!\n');
+                    console.log('================================================================\n');
+                    manager();
                 } else {
 
                     console.log('\n====================Low Product Stock===========================\n');
